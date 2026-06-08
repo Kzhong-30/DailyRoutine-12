@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { Habit, CheckInRecord, HabitStats } from '../types';
+import { Habit, HabitStats } from '../types';
 import { getHabits, getRecords } from '../utils/storage';
 import { getHabitStats } from '../utils/statistics';
 import { subscribeDataChanged } from '../utils/eventBus';
 
 export const useHabitData = () => {
   const [habits, setHabits] = useState<Habit[]>([]);
-  const [records, setRecords] = useState<CheckInRecord[]>([]);
+  const [records, setRecords] = useState(getRecords());
   const [isLoaded, setIsLoaded] = useState(false);
 
   const refreshData = useCallback(() => {
@@ -42,9 +42,7 @@ export const useHabitData = () => {
 
   return {
     habits,
-    records,
     isLoaded,
-    refreshData,
     getStats,
     isTodayChecked,
   };

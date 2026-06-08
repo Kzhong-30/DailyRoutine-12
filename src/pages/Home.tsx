@@ -56,7 +56,7 @@ export const Home = () => {
       {showAddModal && (
         <AddHabitModal
           onClose={() => setShowAddModal(false)}
-          onAdd={notifyDataChanged}
+          onAdded={notifyDataChanged}
         />
       )}
     </div>

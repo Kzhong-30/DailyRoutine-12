@@ -1,27 +1,35 @@
-import { useState } from 'react';
-import { Habit } from '../types';
+import { useState, useEffect, useCallback } from 'react';
 import { addHabit } from '../utils/storage';
 
 interface AddHabitModalProps {
   onClose: () => void;
-  onAdd: (habit: Habit) => void;
+  onAdded: () => void;
 }
 
 const ICONS = ['📚', '🏃', '💪', '🧘', '✍️', '🎯', '💧', '🥗', '😴', '💊', '🎸', '📝', '🚶', '🧹', '💻', '🎨'];
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899', '#06B6D4', '#84CC16'];
 
-export const AddHabitModal = ({ onClose, onAdd }: AddHabitModalProps) => {
+export const AddHabitModal = ({ onClose, onAdded }: AddHabitModalProps) => {
   const [name, setName] = useState('');
   const [icon, setIcon] = useState(ICONS[0]);
   const [color, setColor] = useState(COLORS[0]);
   const [dailyTarget, setDailyTarget] = useState(1);
   const [reminderTime, setReminderTime] = useState('');
 
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.key === 'Escape') onClose();
+  }, [onClose]);
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
 
-    const newHabit: Habit = {
+    const newHabit = {
       id: Date.now().toString(),
       name: name.trim(),
       icon,
@@ -32,12 +40,16 @@ export const AddHabitModal = ({ onClose, onAdd }: AddHabitModalProps) => {
     };
 
     addHabit(newHabit);
-    onAdd(newHabit);
+    onAdded();
     onClose();
   };
 
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) onClose();
+  };
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" onClick={handleBackdropClick}>
       <div className="bg-white rounded-2xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-gray-800">添加新习惯</h2>
