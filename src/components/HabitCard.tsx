@@ -6,10 +6,9 @@ interface HabitCardProps {
   habit: Habit;
   stats: HabitStats;
   todayChecked: boolean;
-  onUpdate: () => void;
 }
 
-export const HabitCard = ({ habit, stats, todayChecked, onUpdate }: HabitCardProps) => {
+export const HabitCard = ({ habit, stats, todayChecked }: HabitCardProps) => {
   const navigate = useNavigate();
 
   const handleQuickCheckIn = (e: React.MouseEvent) => {
@@ -20,7 +19,6 @@ export const HabitCard = ({ habit, stats, todayChecked, onUpdate }: HabitCardPro
     } else {
       checkIn(habit.id, today, habit.dailyTarget);
     }
-    onUpdate();
   };
 
   return (

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useHabitData } from '../hooks/useHabitData';
-import { notifyDataChanged } from '../utils/eventBus';
 import { HabitCard } from '../components/HabitCard';
 import { AddHabitModal } from '../components/AddHabitModal';
 
@@ -26,7 +25,6 @@ export const Home = () => {
                 habit={habit}
                 stats={stats}
                 todayChecked={isTodayChecked(habit.id)}
-                onUpdate={notifyDataChanged}
               />
             );
           })}
@@ -56,7 +54,6 @@ export const Home = () => {
       {showAddModal && (
         <AddHabitModal
           onClose={() => setShowAddModal(false)}
-          onAdded={notifyDataChanged}
         />
       )}
     </div>

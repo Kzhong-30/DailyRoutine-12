@@ -4,13 +4,12 @@ import { addHabit } from '../utils/storage';
 
 interface AddHabitModalProps {
   onClose: () => void;
-  onAdded: () => void;
 }
 
 const ICONS = ['📚', '🏃', '💪', '🧘', '✍️', '🎯', '💧', '🥗', '😴', '💊', '🎸', '📝', '🚶', '🧹', '💻', '🎨'];
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899', '#06B6D4', '#84CC16'];
 
-export const AddHabitModal = ({ onClose, onAdded }: AddHabitModalProps) => {
+export const AddHabitModal = ({ onClose }: AddHabitModalProps) => {
   const [name, setName] = useState('');
   const [icon, setIcon] = useState(ICONS[0]);
   const [color, setColor] = useState(COLORS[0]);
@@ -41,7 +40,6 @@ export const AddHabitModal = ({ onClose, onAdded }: AddHabitModalProps) => {
     };
 
     addHabit(newHabit);
-    onAdded();
     onClose();
   };
 
