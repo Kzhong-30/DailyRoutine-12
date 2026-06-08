@@ -6,10 +6,9 @@ interface HeatmapProps {
   color: string;
   dailyTarget: number;
   data: Map<string, number>;
-  onUpdate: () => void;
 }
 
-export const Heatmap = ({ habitId, color, dailyTarget, data, onUpdate }: HeatmapProps) => {
+export const Heatmap = ({ habitId, color, dailyTarget, data }: HeatmapProps) => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedCount, setSelectedCount] = useState(0);
   const [showModal, setShowModal] = useState(false);
@@ -65,7 +64,6 @@ export const Heatmap = ({ habitId, color, dailyTarget, data, onUpdate }: Heatmap
       } else {
         cancelCheckIn(habitId, selectedDate);
       }
-      onUpdate();
       setShowModal(false);
     }
   };

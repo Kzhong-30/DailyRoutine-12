@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Habit } from '../types';
 import { addHabit } from '../utils/storage';
 
 interface AddHabitModalProps {
@@ -29,7 +30,7 @@ export const AddHabitModal = ({ onClose, onAdded }: AddHabitModalProps) => {
     e.preventDefault();
     if (!name.trim()) return;
 
-    const newHabit = {
+    const newHabit: Habit = {
       id: Date.now().toString(),
       name: name.trim(),
       icon,

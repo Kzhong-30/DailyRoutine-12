@@ -6,7 +6,7 @@ import { subscribeDataChanged } from '../utils/eventBus';
 
 export const useHabitData = () => {
   const [habits, setHabits] = useState<Habit[]>([]);
-  const [records, setRecords] = useState(getRecords());
+  const [records, setRecords] = useState(() => getRecords());
   const [isLoaded, setIsLoaded] = useState(false);
 
   const refreshData = useCallback(() => {

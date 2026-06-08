@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { deleteHabit } from '../utils/storage';
 import { getYearlyData } from '../utils/statistics';
 import { useHabitData } from '../hooks/useHabitData';
-import { notifyDataChanged } from '../utils/eventBus';
 import { Heatmap } from '../components/Heatmap';
 
 export const HabitDetail = () => {
@@ -102,7 +101,6 @@ export const HabitDetail = () => {
           color={habit.color}
           dailyTarget={habit.dailyTarget}
           data={yearlyData}
-          onUpdate={notifyDataChanged}
         />
       </div>
     </div>
