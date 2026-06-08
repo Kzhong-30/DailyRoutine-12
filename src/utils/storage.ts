@@ -1,5 +1,5 @@
 import { Habit, CheckInRecord } from '../types';
-import { notifyDataChanged } from '../hooks/useHabitData';
+import { notifyDataChanged } from './eventBus';
 
 const HABITS_KEY = 'habit_tracker_habits';
 const RECORDS_KEY = 'habit_tracker_records';

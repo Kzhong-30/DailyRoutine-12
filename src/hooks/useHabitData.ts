@@ -2,20 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Habit, CheckInRecord, HabitStats } from '../types';
 import { getHabits, getRecords } from '../utils/storage';
 import { getHabitStats } from '../utils/statistics';
-
-type Listener = () => void;
-const listeners = new Set<Listener>();
-
-export const notifyDataChanged = () => {
-  listeners.forEach(listener => listener());
-};
-
-const subscribe = (listener: Listener) => {
-  listeners.add(listener);
-  return () => {
-    listeners.delete(listener);
-  };
-};
+import { notifyDataChanged, subscribeDataChanged } from '../utils/eventBus';
 
 export const useHabitData = () => {
   const [habits, setHabits] = useState<Habit[]>([]);
@@ -30,7 +17,7 @@ export const useHabitData = () => {
 
   useEffect(() => {
     refreshData();
-    return subscribe(refreshData);
+    return subscribeDataChanged(refreshData);
   }, [refreshData]);
 
   const statsCache = useMemo(() => {
