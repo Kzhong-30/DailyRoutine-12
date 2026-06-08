@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { checkIn, cancelCheckIn } from '../utils/storage';
 
 interface HeatmapProps {
   habitId: string;
   color: string;
   dailyTarget: number;
   data: Map<string, number>;
+  onUpdateRecord: (habitId: string, date: string, count: number) => void;
+  onRemoveRecord: (habitId: string, date: string) => void;
 }
 
-export const Heatmap = ({ habitId, color, dailyTarget, data }: HeatmapProps) => {
+export const Heatmap = ({ habitId, color, dailyTarget, data, onUpdateRecord, onRemoveRecord }: HeatmapProps) => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedCount, setSelectedCount] = useState(0);
   const [showModal, setShowModal] = useState(false);
@@ -60,9 +61,9 @@ export const Heatmap = ({ habitId, color, dailyTarget, data }: HeatmapProps) => 
   const handleSave = () => {
     if (selectedDate) {
       if (selectedCount > 0) {
-        checkIn(habitId, selectedDate, selectedCount);
+        onUpdateRecord(habitId, selectedDate, selectedCount);
       } else {
-        cancelCheckIn(habitId, selectedDate);
+        onRemoveRecord(habitId, selectedDate);
       }
       setShowModal(false);
     }

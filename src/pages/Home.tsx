@@ -4,7 +4,7 @@ import { HabitCard } from '../components/HabitCard';
 import { AddHabitModal } from '../components/AddHabitModal';
 
 export const Home = () => {
-  const { habits, getStats, isTodayChecked } = useHabitData();
+  const { habits, getStats, isTodayChecked, toggleCheckIn } = useHabitData();
   const [showAddModal, setShowAddModal] = useState(false);
 
   return (
@@ -25,6 +25,7 @@ export const Home = () => {
                 habit={habit}
                 stats={stats}
                 todayChecked={isTodayChecked(habit.id)}
+                onToggle={() => toggleCheckIn(habit.id, new Date().toISOString().split('T')[0], habit.dailyTarget)}
               />
             );
           })}

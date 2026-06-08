@@ -1,20 +1,19 @@
 import { useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { deleteHabit } from '../utils/storage';
-import { getYearlyData } from '../utils/statistics';
 import { useHabitData } from '../hooks/useHabitData';
 import { Heatmap } from '../components/Heatmap';
 
 export const HabitDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { habits, isLoaded, getStats } = useHabitData();
+  const { habits, isLoaded, getStats, updateRecord, removeRecord, getYearlyDataForHabit } = useHabitData();
 
   const habit = habits.find(h => h.id === id);
   const stats = habit ? getStats(habit.id) : null;
-  const yearlyData = useMemo(() => 
-    habit ? getYearlyData(habit.id, habit.dailyTarget) : new Map(),
-    [habit, habits]
+  const yearlyData = useMemo(() =>
+    habit ? getYearlyDataForHabit(habit.id, habit.dailyTarget) : new Map(),
+    [habit, getYearlyDataForHabit]
   );
 
   useEffect(() => {
@@ -101,6 +100,8 @@ export const HabitDetail = () => {
           color={habit.color}
           dailyTarget={habit.dailyTarget}
           data={yearlyData}
+          onUpdateRecord={updateRecord}
+          onRemoveRecord={removeRecord}
         />
       </div>
     </div>

@@ -1,24 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import { Habit, HabitStats } from '../types';
-import { checkIn, cancelCheckIn, formatDate } from '../utils/storage';
 
 interface HabitCardProps {
   habit: Habit;
   stats: HabitStats;
   todayChecked: boolean;
+  onToggle: () => void;
 }
 
-export const HabitCard = ({ habit, stats, todayChecked }: HabitCardProps) => {
+export const HabitCard = ({ habit, stats, todayChecked, onToggle }: HabitCardProps) => {
   const navigate = useNavigate();
 
   const handleQuickCheckIn = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const today = formatDate(new Date());
-    if (todayChecked) {
-      cancelCheckIn(habit.id, today);
-    } else {
-      checkIn(habit.id, today, habit.dailyTarget);
-    }
+    onToggle();
   };
 
   return (
