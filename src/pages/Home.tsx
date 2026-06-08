@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useHabitData } from '../hooks/useHabitData';
+import { notifyDataChanged } from '../utils/eventBus';
 import { HabitCard } from '../components/HabitCard';
 import { AddHabitModal } from '../components/AddHabitModal';
 
 export const Home = () => {
-  const { habits, getStats, isTodayChecked, notifyDataChanged } = useHabitData();
+  const { habits, getStats, isTodayChecked } = useHabitData();
   const [showAddModal, setShowAddModal] = useState(false);
 
   return (

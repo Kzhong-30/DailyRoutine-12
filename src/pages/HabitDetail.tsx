@@ -3,12 +3,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { deleteHabit } from '../utils/storage';
 import { getYearlyData } from '../utils/statistics';
 import { useHabitData } from '../hooks/useHabitData';
+import { notifyDataChanged } from '../utils/eventBus';
 import { Heatmap } from '../components/Heatmap';
 
 export const HabitDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { habits, isLoaded, getStats, notifyDataChanged } = useHabitData();
+  const { habits, isLoaded, getStats } = useHabitData();
 
   const habit = habits.find(h => h.id === id);
   const stats = habit ? getStats(habit.id) : null;

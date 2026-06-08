@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useHabitData } from '../hooks/useHabitData';
+import { notifyDataChanged } from '../utils/eventBus';
 import { getMonthlyRates } from '../utils/statistics';
 import { exportToCSV } from '../utils/csv';
 
 export const Statistics = () => {
-  const { habits, getStats, notifyDataChanged } = useHabitData();
+  const { habits, getStats } = useHabitData();
 
   const monthlyRates = useMemo(() => getMonthlyRates(habits), [habits]);
   const colors = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899', '#06B6D4', '#84CC16'];

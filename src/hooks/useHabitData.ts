@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Habit, CheckInRecord, HabitStats } from '../types';
 import { getHabits, getRecords } from '../utils/storage';
 import { getHabitStats } from '../utils/statistics';
-import { notifyDataChanged, subscribeDataChanged } from '../utils/eventBus';
+import { subscribeDataChanged } from '../utils/eventBus';
 
 export const useHabitData = () => {
   const [habits, setHabits] = useState<Habit[]>([]);
@@ -47,6 +47,5 @@ export const useHabitData = () => {
     refreshData,
     getStats,
     isTodayChecked,
-    notifyDataChanged,
   };
 };
